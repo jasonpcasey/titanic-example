@@ -1,0 +1,17 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+
+```{r}
+library(tidyverse)
+
+training.data <- read_csv('data/train.csv')
+testing.data <- read_csv('data/test.csv')
+
+head(training.data)
+```
+
+
