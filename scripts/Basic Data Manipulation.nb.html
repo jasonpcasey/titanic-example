@@ -175,21 +175,9 @@ $(document).ready(function () {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXHUwMDFiWzMwbS0tIFx1MDAxYlsxbUF0dGFjaGluZyBwYWNrYWdlc1x1MDAxYlsyMm0gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHRpZHl2ZXJzZSAxLjIuMSAtLVx1MDAxYlszOW1cblx1MDAxYlszMG1cdTAwMWJbMzJtdlx1MDAxYlszMG0gXHUwMDFiWzM0bWdncGxvdDJcdTAwMWJbMzBtIDIuMi4xICAgICBcdTAwMWJbMzJtdlx1MDAxYlszMG0gXHUwMDFiWzM0bXB1cnJyICBcdTAwMWJbMzBtIDAuMi40XG5cdTAwMWJbMzJtdlx1MDAxYlszMG0gXHUwMDFiWzM0bXRpYmJsZSBcdTAwMWJbMzBtIDEuMy40ICAgICBcdTAwMWJbMzJtdlx1MDAxYlszMG0gXHUwMDFiWzM0bWRwbHlyICBcdTAwMWJbMzBtIDAuNy40XG5cdTAwMWJbMzJtdlx1MDAxYlszMG0gXHUwMDFiWzM0bXRpZHlyICBcdTAwMWJbMzBtIDAuNy4yICAgICBcdTAwMWJbMzJtdlx1MDAxYlszMG0gXHUwMDFiWzM0bXN0cmluZ3JcdTAwMWJbMzBtIDEuMi4wXG5cdTAwMWJbMzJtdlx1MDAxYlszMG0gXHUwMDFiWzM0bXJlYWRyICBcdTAwMWJbMzBtIDEuMS4xICAgICBcdTAwMWJbMzJtdlx1MDAxYlszMG0gXHUwMDFiWzM0bWZvcmNhdHNcdTAwMWJbMzBtIDAuMi4wXHUwMDFiWzM5bVxuXHUwMDFiWzMwbS0tIFx1MDAxYlsxbUNvbmZsaWN0c1x1MDAxYlsyMm0gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tIHRpZHl2ZXJzZV9jb25mbGljdHMoKSAtLVxuXHUwMDFiWzMxbXhcdTAwMWJbMzBtIFx1MDAxYlszNG1kcGx5clx1MDAxYlszMG06Olx1MDAxYlszMm1maWx0ZXIoKVx1MDAxYlszMG0gbWFza3MgXHUwMDFiWzM0bXN0YXRzXHUwMDFiWzMwbTo6ZmlsdGVyKClcblx1MDAxYlszMW14XHUwMDFiWzMwbSBcdTAwMWJbMzRtZHBseXJcdTAwMWJbMzBtOjpcdTAwMWJbMzJtbGFnKClcdTAwMWJbMzBtICAgIG1hc2tzIFx1MDAxYlszNG1zdGF0c1x1MDAxYlszMG06OmxhZygpXHUwMDFiWzM5bVxuIn0= -->
-<pre><code>[30m-- [1mAttaching packages[22m --------------------------------------- tidyverse 1.2.1 --[39m
-[30m[32mv[30m [34mggplot2[30m 2.2.1     [32mv[30m [34mpurrr  [30m 0.2.4
-[32mv[30m [34mtibble [30m 1.3.4     [32mv[30m [34mdplyr  [30m 0.7.4
-[32mv[30m [34mtidyr  [30m 0.7.2     [32mv[30m [34mstringr[30m 1.2.0
-[32mv[30m [34mreadr  [30m 1.1.1     [32mv[30m [34mforcats[30m 0.2.0[39m
-[30m-- [1mConflicts[22m ------------------------------------------ tidyverse_conflicts() --
-[31mx[30m [34mdplyr[30m::[32mfilter()[30m masks [34mstats[30m::filter()
-[31mx[30m [34mdplyr[30m::[32mlag()[30m    masks [34mstats[30m::lag()[39m</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJhaW5pbmcuZGF0YSA8LSByZWFkX2NzdignZGF0YS90cmFpbi5jc3YnKVxuYGBgIn0= -->
-<pre class="r"><code>training.data &lt;- read_csv('data/train.csv')</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG50cmFpbmluZy5kYXRhIDwtIHJlYWRfY3N2KCcuLi9kYXRhL3RyYWluLmNzdicpXG5gYGAifQ== -->
+<pre class="r"><code>library(tidyverse)
+training.data &lt;- read_csv('../data/train.csv')</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBQYXNzZW5nZXJJZCA9IGNvbF9pbnRlZ2VyKCksXG4gIFN1cnZpdmVkID0gY29sX2ludGVnZXIoKSxcbiAgUGNsYXNzID0gY29sX2ludGVnZXIoKSxcbiAgTmFtZSA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgU2V4ID0gY29sX2NoYXJhY3RlcigpLFxuICBBZ2UgPSBjb2xfZG91YmxlKCksXG4gIFNpYlNwID0gY29sX2ludGVnZXIoKSxcbiAgUGFyY2ggPSBjb2xfaW50ZWdlcigpLFxuICBUaWNrZXQgPSBjb2xfY2hhcmFjdGVyKCksXG4gIEZhcmUgPSBjb2xfZG91YmxlKCksXG4gIENhYmluID0gY29sX2NoYXJhY3RlcigpLFxuICBFbWJhcmtlZCA9IGNvbF9jaGFyYWN0ZXIoKVxuKVxuIn0= -->
 <pre><code>Parsed with column specification:
@@ -208,10 +196,29 @@ cols(
   Embarked = col_character()
 )</code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGVzdGluZy5kYXRhIDwtIHJlYWRfY3N2KCcuLi9kYXRhL3Rlc3QuY3N2JylcbmBgYCJ9 -->
+<pre class="r"><code>testing.data &lt;- read_csv('../data/test.csv')</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiUGFyc2VkIHdpdGggY29sdW1uIHNwZWNpZmljYXRpb246XG5jb2xzKFxuICBQYXNzZW5nZXJJZCA9IGNvbF9pbnRlZ2VyKCksXG4gIFBjbGFzcyA9IGNvbF9pbnRlZ2VyKCksXG4gIE5hbWUgPSBjb2xfY2hhcmFjdGVyKCksXG4gIFNleCA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgQWdlID0gY29sX2RvdWJsZSgpLFxuICBTaWJTcCA9IGNvbF9pbnRlZ2VyKCksXG4gIFBhcmNoID0gY29sX2ludGVnZXIoKSxcbiAgVGlja2V0ID0gY29sX2NoYXJhY3RlcigpLFxuICBGYXJlID0gY29sX2RvdWJsZSgpLFxuICBDYWJpbiA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgRW1iYXJrZWQgPSBjb2xfY2hhcmFjdGVyKClcbilcbiJ9 -->
+<pre><code>Parsed with column specification:
+cols(
+  PassengerId = col_integer(),
+  Pclass = col_integer(),
+  Name = col_character(),
+  Sex = col_character(),
+  Age = col_double(),
+  SibSp = col_integer(),
+  Parch = col_integer(),
+  Ticket = col_character(),
+  Fare = col_double(),
+  Cabin = col_character(),
+  Embarked = col_character()
+)</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaGVhZCh0cmFpbmluZy5kYXRhKVxuYGBgIn0= -->
 <pre class="r"><code>head(training.data)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MTIsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFCbzFVUzI4VE1SQjI4eW9OYmFtRXhPT0FNTGNpdGR0c2xwQVVjVWhZaUVyVVI5cFVvbGRuNHlaV050N2kzVzBiY1FDSksyY2tPSExnRDNEbUg4Q0ZuOEdKTTRmQ09QR0VkQXNTbHB5WitlWmhmK1BKN2owK0tPWVA4b1NRRkVsblVpU1ZCaFVrSVRNa1ErYTBQQ1VrZlJXVWVkZ0xzSE1qcDA0QWg0NkduVFU0K29tSndZMEwvV21EVDB1OWwwYis4Y0hYSHlrV3k4NEszVklXM1RuaGttNHdwVVJvM0k0YkQ0VHNodG9mV3JRUjlDU0ZqSTdQaDNTNTdnZUtTNDhESXJyZGtPNzMySkNydXliMTJnWVgvYjZRWEVLeUNDRjdrd25KakhlbEhrZUsrejdIeXN4N0h2T1FibkFXOWVqeXB2Q0hkSXNOYVpOekh5dmVxRUc4SEYvMW1mQjl3UVlRTDlYUStKZTJBc1dNdjhFR1BFeHd6UXlZejQyZU8rVC9hV1V1NklRczZxanEvWEc3cTY2UkQ0eXN2VG9uWC83UXY3TWZFaStMTC9hM2wvdlhtbVl6VjFzcjBhSnRsMjBEWEdxNjFDNlgxdGV4SGEzOW5lMjFuYUpGSGJ0Z0Z5dEZwR2ZiVHFYZ29PV1VuWHVsd3NSeUNwVnllVUx4bHFHMCsrM08yNzNQRDZ1M1B6bDZWUnR2dnNENldxVTMzOEY2WDZYZlAyNnV2WDR4dVNKYzd4Y3NVelh0VmtvSktPUGFSV2VDL1pIVERHZGFxTGdYa0l2S2J1SXZsZlY4RnVJSUlKanZzSWhaaHdxbUl4a3VweVptM29DWG0xQ0N5eTVYVHp2WTVWYXNqc1V4Unp2WEhKOWphRzNyeW9aMWk1K2lXdXNpbW0ySmR1c0lqU1pUWGc4cjdRdXZ6eU9zVkdkcWt1T3l0cEI0Z1NlRE5sTjl1TUI1QW5NcU9MR1FoQjZrbEI0LzZPcFBFR2VKNE5uZ0tCS0JoTkNVL3Vwa0UyMmFVUW5nU2l4MTZjNnExNHRsZjlYV3JaeWEzUVdqNTZiMCtmR1JhWHpWTE5LRWZzSlhBYW41ck0xOVl5d0NoUkVENjBnSmlaM0lBeHBhVVJBeGpNdDdnWS9JaUJzNSt3MGhNV0Z4WXdVQUFBPT0ifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibmNvbCI6MTIsIm5yb3ciOjZ9LCJyZGYiOiJINHNJQUFBQUFBQUFCbzFVUzIvVFFCRGV4a2xLUTFzcUlmRTRJSlpia1ZvM2pnbEpFWWNFUTFXcVB0S21FcjF1bkcyeWlyTXVhN3R0eEFFa3JweVI0TWlCUDhDWmZ3QVhmZ1luemh3S3M4bE9TRjJRR0drOU05ODh2Ti9zMm51UEQwcUZnd0loSkVPc3JFVXlGcGpaRER5bVNKYk1hSDFLaUhVVmpGbFljN0R5dzZBdWdJRE9ocFV6T01hSnljR0ZnbkhMNEpOYXI0VmhmUFRpNjQ4VVMyUjdpVzRwbSs2Y2NFblhtVklpTW1IWFMvcENkaUlkajJ5NkVYWWxoWXAyd0FkMGNTMElGWmMrQjBSME9oSGQ3N0lCVjNkTjZiVjFMbm85SWJtRVloRkI5U1lUa3BubzBsb1NLeDRFSERzei8zbkNJN3JPV2R5bGk1c2lHTkF0TnFBTnpnUHNlS01PK1hLMDFXY2lDQVRyUTc1VUF4TmYyQW9WTS9FTjF1ZFJpbXUyendKdTdQd2gvMDh2ZThFbVpGNW4xZTZQeGwzempINWdkUDNWT2YzeWgzNU9mMGlkTEo3WTMwN3VYekxKWnFhK1VxWWx4Nms0QnJqVThLaFRLYSt1NGppYSt6dmJLenNsbTdwTzBTbFZTMGpQY2R4cTBVWFByYmozeXNXeDV4YXJsY3FZNGkxRGFmZmJuYmQ3bngvV2JuOXl0ZFEyM253QitWcWpOOStCdksvUjd4ODNWMTYvR0c4UnR2Y0x4SFMxdkdvNUJXVTlwK1NPc1Q5Nmt1RlVFdzN2QW5MUjJFMTlVamsvWUJGZUFRUUxiUll6KzFEQjdVaW55NGtiTTJ2QXl3MW93V1dIcTZkdG5ISXpVY2ZpbUtPZmI0emVZMmh0Njg2R2RaT2ZvbG52SUpwcmlsYnpDSjBHVTM0WE8rMEx2OGRqN0xURzFMakdZeTBoY1FOUCtpMm1lckNCOHdSbVZIaGlJd2w5a1RMNitzRlVmNEk2U3lWUGgwZXhDQ1drWnZSZko1Y2EwNVJLQVZjU3FWdTNsLzF1SW52TCt1UUtFM2QzenRqNUNYdDI5RW9MVHpXSE5HR2U4RmRBYWdGcjhjQTQ4MEJoeU1BK1VrTGlKQXFBUm5ZY3hnenpDbjRZSURMa1JzNStBMEthc0RoakJRQUEifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["PassengerId"],"name":[1],"type":["int"],"align":["right"]},{"label":["Survived"],"name":[2],"type":["int"],"align":["right"]},{"label":["Pclass"],"name":[3],"type":["int"],"align":["right"]},{"label":["Name"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Sex"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Age"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["SibSp"],"name":[7],"type":["int"],"align":["right"]},{"label":["Parch"],"name":[8],"type":["int"],"align":["right"]},{"label":["Ticket"],"name":[9],"type":["chr"],"align":["left"]},{"label":["Fare"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["Cabin"],"name":[11],"type":["chr"],"align":["left"]},{"label":["Embarked"],"name":[12],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"0","3":"3","4":"Braund, Mr. Owen Harris","5":"male","6":"22","7":"1","8":"0","9":"A/5 21171","10":"7.2500","11":"NA","12":"S"},{"1":"2","2":"1","3":"1","4":"Cumings, Mrs. John Bradley (Florence Briggs Thayer)","5":"female","6":"38","7":"1","8":"0","9":"PC 17599","10":"71.2833","11":"C85","12":"C"},{"1":"3","2":"1","3":"3","4":"Heikkinen, Miss. Laina","5":"female","6":"26","7":"0","8":"0","9":"STON/O2. 3101282","10":"7.9250","11":"NA","12":"S"},{"1":"4","2":"1","3":"1","4":"Futrelle, Mrs. Jacques Heath (Lily May Peel)","5":"female","6":"35","7":"1","8":"0","9":"113803","10":"53.1000","11":"C123","12":"S"},{"1":"5","2":"0","3":"3","4":"Allen, Mr. William Henry","5":"male","6":"35","7":"0","8":"0","9":"373450","10":"8.0500","11":"NA","12":"S"},{"1":"6","2":"0","3":"3","4":"Moran, Mr. James","5":"male","6":"NA","7":"0","8":"0","9":"330877","10":"8.4583","11":"NA","12":"Q"}],"options":{"columns":{"min":{},"max":[10],"total":[12]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
@@ -222,7 +229,7 @@ cols(
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCg0KdHJhaW5pbmcuZGF0YSA8LSByZWFkX2NzdignZGF0YS90cmFpbi5jc3YnKQ0KdGVzdGluZy5kYXRhIDwtIHJlYWRfY3N2KCdkYXRhL3Rlc3QuY3N2JykNCg0KaGVhZCh0cmFpbmluZy5kYXRhKQ0KYGBgDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQoNCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCg0KdHJhaW5pbmcuZGF0YSA8LSByZWFkX2NzdignLi4vZGF0YS90cmFpbi5jc3YnKQ0KdGVzdGluZy5kYXRhIDwtIHJlYWRfY3N2KCcuLi9kYXRhL3Rlc3QuY3N2JykNCg0KaGVhZCh0cmFpbmluZy5kYXRhKQ0KYGBgDQoNCg0K</div>
 
 
 
