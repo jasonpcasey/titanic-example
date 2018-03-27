@@ -3,15 +3,294 @@ title: "R Notebook"
 output: html_notebook
 ---
 
-
+# Load Data
 
 ```{r}
+library(rpart)
+library(randomForest)
+library(party)
+library(caret)
 library(tidyverse)
 
-training.data <- read_csv('../data/train.csv')
-testing.data <- read_csv('../data/test.csv')
+set.seed(415)
 
-head(training.data)
+training.data <- read_csv('../data/train.csv') %>%
+  mutate(Set = 'train')
+
+testing.data <- read_csv('../data/test.csv') %>%
+  mutate(Survived = 1,
+         Set = 'test')
+
+combined.data <- training.data %>%
+  union(testing.data)
+
+combined.data
 ```
+
+# Perform Imputations and Transformations
+
+```{r}
+combined.data <- combined.data %>%
+  separate(Name, c('Surname','Title','First'), sep='[.,]') %>%
+  mutate(Group = factor(Survived, levels=0:1, labels=c('Perished','Survived')),
+         FamilySize = SibSp + Parch + 1,
+         Members = FamilySize,
+         Title = str_trim(Title),
+         Surname = str_trim(Surname),
+         FamilyName = Surname,
+         First = str_trim(First),
+         Title = recode(Title,
+                        'Mr' = 'Mr',
+                        'Miss' = 'Miss',
+                        'Mrs' = 'Mrs',
+                        'Master' = 'Master',
+                        'Ms' = 'Miss',
+                        'Mlle' = 'Miss',
+                        'Mme' = 'Mrs',
+                        .default = 'Titled'),
+         Embarked = ifelse(is.na(Embarked), 'S', Embarked),
+         Fare = ifelse(is.na(Fare), median(Fare, na.rm = TRUE), Fare)) %>%
+  unite('FamilyID',Members,FamilyName) %>%
+  mutate(FamilyID2 = ifelse(FamilySize <= 3, 'Small', FamilyID),
+         Pclass = factor(Pclass),
+         Surname = factor(Surname),
+         Title = factor(Title),
+         Embarked = factor(Embarked),
+         FamilyID = factor(FamilyID),
+         FamilyID2 = factor(FamilyID2),
+         Sex = factor(Sex))
+
+AgeFit <- rpart(Age ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Title + FamilySize,
+                data = combined.data[!is.na(combined.data$Age),],
+                method = 'anova')
+
+combined.data$Age[is.na(combined.data$Age)] <- predict(AgeFit, combined.data[is.na(combined.data$Age),])
+
+# Housekeeping: clear unused objects from memory
+rm(AgeFit)
+
+combined.data
+```
+
+# Re-create Training Data
+
+```{r}
+training.data <- combined.data %>%
+  filter(Set == 'train') %>%
+  select(Survived,
+         Group,
+         Pclass,
+         Sex,
+         Age,
+         SibSp,
+         Parch,
+         Fare,
+         Embarked,
+         Title,
+         FamilySize,
+         FamilyID,
+         FamilyID2)
+
+training.data
+```
+
+# Re-create Test Data
+
+```{r}
+testing.data <- combined.data %>%
+  filter(Set == 'train') %>%
+  select(Survived,
+         Group,
+         Pclass,
+         Sex,
+         Age,
+         SibSp,
+         Parch,
+         Fare,
+         Embarked,
+         Title,
+         FamilySize,
+         FamilyID,
+         FamilyID2)
+
+testing.data
+```
+
+# Output Data Files
+
+```{r}
+system.time({
+  write_csv(combined.data,
+          '../data/combined.csv',
+          na='')
+})
+
+system.time({
+  write_csv(training.data,
+          '../data/clean_training.csv',
+          na='')
+})
+
+system.time({
+  write_csv(testing.data,
+          '../data/clean_testing.csv',
+          na='')
+})
+```
+
+# Random Forest
+
+## Summary
+
+```{r}
+fit.1 <- randomForest(Group ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked + Title + FamilySize,
+                    data = training.data,
+                    importance = TRUE,
+                    ntree = 2000)
+
+Prediction.1 <- predict(fit.1, training.data)
+
+summary(fit.1)
+```
+
+## Confusion Matrix
+
+```{r}
+table(training.data$Group, Prediction.1)
+
+```
+
+## Variable Importance
+
+```{r}
+varImpPlot(fit.1)
+```
+
+# Support Vector Machine
+
+## Untuned Model
+
+### Summary
+
+```{r}
+fit.2 <- train(Group ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked + Title + FamilySize,
+               data = training.data,
+               method = 'svmRadial',
+               trControl = trainControl(method='repeatedcv', number=10, repeats=3),
+               preProcess = c('center','scale'),
+               tuneLength = 10)
+
+Prediction.2 <- predict(fit.2, training.data)
+
+fit.2
+```
+
+### Confusion Matrix
+
+```{r}
+confusionMatrix(Prediction.2, training.data$Group)
+```
+
+### Model Parameters
+
+```{r}
+plot(fit.2)
+```
+
+## Tuned Model
+
+### Summary
+
+```{r}
+my.grid <- expand.grid(sigma=c(0.01,0.02,0.025,0.03,0.04,0.05, 0.06, 0.07,0.08, 0.09, 0.1, 0.25, 0.5, 0.75,0.8,0.9),
+                       C=c(0.01, 0.05, 0.1, 0.15, 0.25, 0.5, 0.75,1, 1.5, 2,5))
+fit.3 <- train(Group ~ Pclass + Sex + Age + SibSp + Parch + Fare + Embarked + Title + FamilySize,
+               data = training.data,
+               method = 'svmRadial',
+               trControl = trainControl(method='repeatedcv', number=10, repeats=3),
+               preProcess = c('center','scale'),
+               tuneGrid = my.grid,
+               tuneLength = 10)
+
+Prediction.3 <- predict(fit.3, training.data)
+
+fit.3
+```
+
+### Confusion Matrix
+
+```{r}
+confusionMatrix(Prediction.3, training.data$Group)
+```
+
+### Tuning Parameters
+
+```{r}
+plot(fit.3)
+```
+
+### Tuning Grid
+
+```{r}
+as_data_frame(fit.3$results) %>%
+  mutate(sigma = factor(sigma),
+         C = factor(C)) %>%
+  ggplot(aes(sigma, C)) +
+    geom_tile(aes(fill=Accuracy), color='white') +
+    scale_fill_gradient(low='lightgrey', high='steelblue') +
+    ylab('Cost') +
+    xlab('sigma') +
+    theme(legend.title = element_text(size = 10),
+          legend.text = element_text(size = 12),
+          plot.title = element_text(size = 16),
+          axis.title = element_text(size = 14, face = 'bold'),
+          axis.text.x = element_text(angle = 90, hjust = 1)) +
+    labs(fill = 'Accuracy')
+
+```
+
+# Various Plots and Outputs
+
+## Age By Group Box Plot
+
+```{r}
+training.data %>%
+  mutate(Group = factor(Survived, levels=0:1, labels=c('Perished','Survived'))) %>%
+  ggplot(aes(x=Group,
+             y=Age)) + geom_boxplot(na.rm=TRUE)
+```
+
+## Age by Group Frequency Polygon
+
+```{r}
+training.data %>%
+  # filter(Survived==1) %>%
+  mutate(Group = factor(Survived, levels=0:1, labels=c('Perished','Survived'))) %>%
+  ggplot(aes(Age, color=Group)) + geom_freqpoly(na.rm=TRUE)
+```
+
+## Titles
+
+```{r}
+training.data %>%
+  group_by(Title) %>%
+  summarise(Count = n(),
+            Survivors = sum(Survived),
+            Casualties = Count - Survivors) %>%
+  ungroup() %>%
+  mutate(Percentage_Surv = Survivors / Count,
+         Percentage_Per = Casualties / Count) %>%
+  ggplot(aes(x=reorder(Title, Percentage_Surv), y=Percentage_Surv)) +
+     geom_col(fill='darkblue') +
+     scale_x_discrete(name="Title") +
+     scale_y_continuous(name="Percentage",
+                        limits = c(0, 1),
+                        labels = scales::percent) +
+     ggtitle('Percentage Survived By Title') +
+     coord_flip()
+
+```
+
+
 
 
