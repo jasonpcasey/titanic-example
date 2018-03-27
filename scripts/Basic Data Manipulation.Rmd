@@ -6,6 +6,8 @@ output: html_notebook
 # Load Data
 
 ```{r}
+rm(list=ls())
+
 library(rpart)
 library(randomForest)
 library(party)
