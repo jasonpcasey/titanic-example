@@ -16,7 +16,6 @@ makeRow <- function(Pclass,
                     FamilySize) {
   
   # assign inputted values to new dataframe
-  # offcampus is set to NA and will eventually hold the predicted probability
   new.row <- data_frame(Survived = 0,
                         Pclass = Pclass,
                         Sex = Sex,
@@ -26,34 +25,11 @@ makeRow <- function(Pclass,
                         Fare = Fare,
                         Embarked = Embarked,
                         Title = Title,
-                        FamilySize = FamilySize)
-  
-  # new.row$sport2 <- factor(new.row$sport2,
-  #                          levels=c("0",
-  #                                   "base",
-  #                                   "basket",
-  #                                   "cheer",
-  #                                   "crew",
-  #                                   "fence",
-  #                                   "foot",
-  #                                   "golf",
-  #                                   "hockey",
-  #                                   "lacross",
-  #                                   "manager",
-  #                                   "multi",
-  #                                   "rowing",
-  #                                   "soccer",
-  #                                   "swim",
-  #                                   "tennis",
-  #                                   "track",
-  #                                   "volley",
-  #                                   "zspin"))
-  
-  # new.row$offcampus <- as.factor(new.row$offcampus)
-  # new.row$dorm_style <- factor(new.row$dorm_style,
-  #                              levels=c(0,1,2,3))
-  # new.row$famwealth <- factor(new.row$famwealth,
-  #                             levels=c(1,2,3,4,5,6))
+                        FamilySize = FamilySize) %>%
+    mutate(Pclass = factor(Pclass, levels=c('1','2','3')),
+           Sex = factor(Sex, levels=c('male','female')),
+           Embarked = factor(Embarked, levels=c('S','C','Q')),
+           Title = factor(Title, levels=c('Mr','Mrs','Miss','Master','Titled')))
   
   # return the dataframe
   return(new.row)
@@ -97,7 +73,18 @@ createDataSet <- function() {
            Title = factor(Title),
            Embarked = factor(Embarked),
            FamilyID = factor(FamilyID2),
-           Sex = factor(Sex)) %>%
+           Sex = factor(Sex))
+  
+  AgeFit <- rpart(Age ~ Pclass + Sex + SibSp + Parch + Fare + Embarked + Title + FamilySize,
+                  data = combined.data[!is.na(combined.data$Age),],
+                  method = 'anova')
+  
+  combined.data$Age[is.na(combined.data$Age)] <- predict(AgeFit, combined.data[is.na(combined.data$Age),])
+  
+  # Housekeeping: clear unused objects from memory
+  rm(AgeFit)
+  
+  combined.data <- combined.data %>%
     filter(Set == 'train') %>%
     select(Survived,
            Pclass,
@@ -108,11 +95,22 @@ createDataSet <- function() {
            Fare,
            Embarked,
            Title,
-           FamilySize,
-           FamilyID)
+           FamilySize)
   
   return(combined.data)
 }
 
 df <- createDataSet()
 
+fit <- randomForest( factor(Survived) ~ .,
+                      data = df,
+                      importance = TRUE,
+                      ntree = 2000)
+
+updatePrediction <- function(this.row) {
+  mod.pred <- predict(fit,
+                      this.row,
+                      type = 'prob')
+  
+  return(mod.pred)
+}
