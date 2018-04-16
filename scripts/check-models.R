@@ -109,10 +109,10 @@ fit <- randomForest( factor(Survived) ~ .,
 
 summary(fit)
 
-df.1 <- makeRow('1','male',29.6,1,0,32.20,'S','Mr',2)
+this.row <- makeRow('1','male',29.6,1,0,32.20,'S','Mr',2)
 
 mod.pred <- predict(fit,
-                    df.1,
+                    this.row,
                     type = 'prob')
 
 mod.pred[2]
