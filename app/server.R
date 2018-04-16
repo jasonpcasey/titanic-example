@@ -1,7 +1,8 @@
 function(input, output) {
 
-  xrow <- reactive({
+  GetRow <- reactive({
     # make a new row from inputted values
+    # cutoff <- as.numeric(input$cutoff)
     Pclass <- as.character(input$Pclass)
     Sex <- as.character(input$Sex)
     Age <- as.numeric(input$Age)
@@ -12,27 +13,33 @@ function(input, output) {
     Title <- as.character(input$Title)
     FamilySize <- as.integer(input$FamilySize)
     
+    this.row <- makeRow(Pclass,
+                        Sex,
+                        Age,
+                        SibSp,
+                        Parch,
+                        Fare,
+                        Embarked,
+                        Title,
+                        FamilySize)
     
-    myRow <- makeRow(Pclass,
-                     Sex,
-                     Age,
-                     SibSp,
-                     Parch,
-                     Fare,
-                     Embarked,
-                     Title,
-                     FamilySize)
+    return(this.row)
   })
   
   kickMe <- reactive({
     # update prediction
-    myPred <- updatePrediction(xrow())
-    return(myPred)
+    myPred <- updatePrediction(GetRow())
+    return(myPred[2])
   })
-
-    #output$tab <- renderDataTable(df)
-  output$prob <- renderPrint({
-    ifelse(kickMe()[2] > (1 - as.numeric(input$cutoff)), 'Survived','Died')
+  
+  output$prob <- renderText({
+    kickMe()
+    #ifelse(kickMe()[2] > (1 - as.numeric(input$cutoff)), 'Survived','Died')
+    # summary(fit)
+  })
+  
+  output$newdat <- renderDataTable({
+    GetRow()
   })
 
 }

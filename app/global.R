@@ -1,3 +1,5 @@
+library(shiny)
+library(shinydashboard)
 library(rpart)
 library(randomForest)
 library(party)
@@ -107,6 +109,16 @@ fit <- randomForest( factor(Survived) ~ .,
                       importance = TRUE,
                       ntree = 2000)
 
+# this.row <- makeRow('1',
+#                    'male',
+#                    29.6,
+#                    1,
+#                    0,
+#                    32.20,
+#                    'S',
+#                    'Mr',
+#                    2)
+
 updatePrediction <- function(this.row) {
   mod.pred <- predict(fit,
                       this.row,
@@ -114,3 +126,4 @@ updatePrediction <- function(this.row) {
   
   return(mod.pred)
 }
+
