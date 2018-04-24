@@ -38,3 +38,16 @@ kickMe <- reactive({
   # myPred <- updatePrediction()
   # return(myPred[2])
 })
+
+
+output$newdat <- renderDataTable({
+  GetRow()
+})
+
+
+numericInput(inputId = "cutoff",
+             label="Percentage Survived",
+             value=0.38,
+             min=0.00,
+             max=1.00,
+             step=0.01),
