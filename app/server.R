@@ -2,7 +2,7 @@ function(input, output) {
 
   GetRow <- reactive({
     # make a new row from inputted values
-    # cutoff <- as.numeric(input$cutoff)
+    cutoff <- as.numeric(input$cutoff)
     Pclass <- as.character(input$Pclass)
     Sex <- as.character(input$Sex)
     Age <- as.numeric(input$Age)
@@ -32,15 +32,24 @@ function(input, output) {
     return(myPred[2])
   })
   
+  myVerdict <- reactive({
+    # update prediction
+    myPred <- as.numeric(kickMe())
+    output.text <- ifelse(myPred >= 0.5, 'survived', 'perished')
+    
+    return(output.text)
+  })
+  
+  output$verdict <- renderText({
+    paste('This person likely', myVerdict())
+  })
+  
   output$prob <- renderText({
-    kickMe()
+    paste('Survival probability = ', round(kickMe(),2))
     #ifelse(kickMe()[2] > (1 - as.numeric(input$cutoff)), 'Survived','Died')
     # summary(fit)
   })
   
-  output$newdat <- renderDataTable({
-    GetRow()
-  })
 
 }
 
