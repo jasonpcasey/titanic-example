@@ -51,3 +51,13 @@ numericInput(inputId = "cutoff",
              min=0.00,
              max=1.00,
              step=0.01),
+
+
+,
+pclass = factor(pclass),
+surname = factor(surname),
+title = factor(title),
+embarked = factor(embarked),
+family_id = factor(family_id),
+family_id2 = factor(family_id2),
+sex = factor(sex)
