@@ -53,7 +53,9 @@ combined.data <- combined.data %>%
                         .default = 'Titled'),
          Embarked = ifelse(is.na(Embarked), 'S', Embarked),
          Fare = ifelse(is.na(Fare), median(Fare, na.rm = TRUE), Fare)) %>%
-  unite('FamilyID',Members,FamilyName) %>%
+  unite('FamilyID',
+        Members,
+        FamilyName) %>%
   mutate(FamilyID2 = ifelse(FamilySize <= 3, 'Small', FamilyID),
          Pclass = factor(Pclass),
          Surname = factor(Surname),
