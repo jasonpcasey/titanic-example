@@ -1,0 +1,77 @@
+---
+title: "Titanic Model Comparisons Notebook"
+output: html_notebook
+date: 2018-08-01
+---
+
+# Setup
+
+```{r setup, echo=FALSE}
+# Clear memory
+# rm(list=ls())
+
+# Needed libraries
+library(DBI)
+library(odbc)
+library(caret)
+library(tidyverse)
+
+# Set random seed
+set.seed(1965)
+
+# local functions
+source(file="../scripts/user-functions.R")
+
+# get UID for DB
+# uid <- rstudioapi::showPrompt(
+#   title = "Username", message = "Username", default = ""
+# )
+
+```
+
+# Load Data
+
+## Full Data Set
+
+```{r load-data}
+titanic <- grabLocalData("extracts", "SELECT * FROM dbo.titanic3") %>%
+  separate(name, c('surname','title','first'), sep='[.,]', remove = FALSE) %>%
+  modify_at(4:6, ~str_trim(.)) %>%
+  mutate(group = factor(survived, levels=0:1, labels=c('Perished','survived')),
+         family_size = sibsp + parch + 1,
+         members = family_size,
+         family_name = surname,
+         title = recode(title,
+                        'Mr' = 'Mr',
+                        'Miss' = 'Miss',
+                        'Mrs' = 'Mrs',
+                        'Master' = 'Master',
+                        'Ms' = 'Miss',
+                        'Mlle' = 'Miss',
+                        'Mme' = 'Mrs',
+                        .default = 'Titled'),
+         embarked = ifelse(is.na(embarked), 'S', embarked),
+         fare = ifelse(is.na(fare), median(fare, na.rm = TRUE), fare)) %>%
+  unite('family_id',
+        members,
+        family_name) %>%
+  mutate(family_id = ifelse(family_size <= 3, 'Small', family_id))
+
+titanic
+
+```
+
+## Training Data
+
+```{r create-training}
+
+```
+
+## Testing Data
+
+```{r create-testing}
+
+```
+
+
+
